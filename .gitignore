@@ -1,0 +1,9 @@
+node_modules/
+*.iml
+*.js
+*~
+.git/
+package-lock.json
+.npmrc
+reports/
+typeScript/
