@@ -1,6 +1,6 @@
 import { When } from 'cucumber';
 import {ToDoPage} from "../../pages/toDoPage";
-import {browser, by, element, Key} from "protractor";
+import {browser, by, element} from "protractor";
 import {Given} from 'cucumber'
 import * as chai from 'chai';
 import {Then} from 'cucumber'
@@ -21,7 +21,7 @@ Given(/^I am at the (welcome) page$/, async (option) => {
     }})
 
 
-When(/^I click on ([^"]*)$/, async (option) => {
+When(/^I click on ([^"]*)$/, {timeout: 10 * 1000}, async (option) => {
     switch (option){
         case ('Add a new collection'):
             await browser.sleep(500)
@@ -31,6 +31,16 @@ When(/^I click on ([^"]*)$/, async (option) => {
      case ('the edit collection button'):
             await browser.sleep(1000)
             await toDoPage.clickEditCollection()
+            await browser.sleep(1500)
+            break
+        case ('the delete collection button'):
+            await browser.sleep(1000)
+            await toDoPage.clickDeleteCollection()
+            await browser.sleep(1500)
+            break
+        case ('confirm deletion'):
+            await browser.sleep(1000)
+            await toDoPage.clickConfirmDeletion()
             await browser.sleep(1500)
             break
 
@@ -72,4 +82,12 @@ Given(/^have an existing collection$/, async () => {
 });
 Then(/^The collection has been edited$/, async () => {
     await expect (await element(by.dataTest('collectionName-test 2')).getText()).to.be.equal('test 2')
+});
+When(/^I select the ([^"]*) icon on the collection form$/, async (icon) => {
+    await element(by.dataTest(`Button-openIconSelection`)).click()
+    await element(by.dataTest(`Button-icon-${icon}`)).click()
+});
+
+Then(/^The collection has been deleted$/, async () => {
+    await expect(await element.all(by.className('collectionBox__container_box__2V5Vq collectionBox__background__dIAFp false')).count()).to.be.equal(1)
 });

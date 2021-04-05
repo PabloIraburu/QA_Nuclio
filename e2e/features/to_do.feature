@@ -26,24 +26,23 @@ Feature: QA masterclass tests
   Scenario: User edits a collection
     Given I am at the welcome page
     And have an existing collection
-    And I click on the edit collection button
+    When I click on the edit collection button
     And I enter "test 2" on the collection form
     And I click on the Create Button
     Then The collection has been edited
 
 
   @smoke
-  @P21-283
+  @P17-004
   Scenario: User deletes a collection
     Given I am at the welcome page
     And have an existing collection
-    And I fill the task form
-    Then The new task is created
-    And The counter is upd
-
+    When I click on the delete collection button
+    And I click on confirm deletion
+    Then The collection has been deleted
 
   @smoke
-  @P17-004
+  @P17-005
   Scenario: User adds tasks to a collection
     Given I am at the welcome page
     And have an existing collection
