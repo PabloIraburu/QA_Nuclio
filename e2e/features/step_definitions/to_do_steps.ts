@@ -43,16 +43,21 @@ When(/^I click on ([^"]*)$/, {timeout: 10 * 1000}, async (option) => {
             await toDoPage.clickConfirmDeletion()
             await browser.sleep(1500)
             break
+        case ('the login button'):
+            await browser.sleep(1000)
+            await element(by.buttonText('Login')).click()
+            await browser.sleep(1500)
+            break
 
         case ('the collections button'):
             await browser.sleep(500)
             await toDoPage.clickGoToCollectionsPage()
             break
 
-        // case ('the add task button'):
-        //     await browser.sleep(500)
-        //     await toDoPage.clickAddTaskButton()
-        //     break
+        case ('the add task button'):
+            await browser.sleep(500)
+            await element(by.xpath('//*[@id="root"]/div[2]/div[2]/div/button')).click()
+            break
 
         case ('the Create Button'):
             await browser.sleep(500)
@@ -71,7 +76,7 @@ When(/^I enter "([^"]*)" on the (collection|task) form$/, async (text, option) =
             await toDoPage.fillTextFormField('Collection', 'Name', text);
             break
         case ('task'):
-            await toDoPage.fillTextFormField('Task', 'Name', text);
+            await element(by.xpath('//*[@id="taskDataForm"]/input')).sendKeys('Test')
     }
 });
 Then(/^The new collection is created$/, async () => {
@@ -90,4 +95,15 @@ When(/^I select the ([^"]*) icon on the collection form$/, async (icon) => {
 
 Then(/^The collection has been deleted$/, async () => {
     await expect(await element.all(by.className('collectionBox__container_box__2V5Vq collectionBox__background__dIAFp false')).count()).to.be.equal(1)
+});
+When(/^I enter "([^"]*)" in the (username|password) field$/, async (text, type) => {
+    switch (type){
+        case ('username'):
+            await element(by.dataTest('Input-email')).sendKeys(text)
+            await browser.sleep(3000)
+            break
+        case ('password'):
+            await element(by.xpath('//*[@id="root"]/div/div/form/input[2]')).sendKeys(text)
+            break
+    }
 });

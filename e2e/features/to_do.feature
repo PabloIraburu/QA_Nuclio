@@ -5,12 +5,13 @@ Feature: QA masterclass tests
   Background: Given I have a set of valid credentials
     Given I click on the collections button
 
-#  @smoke
-#  @P17-001
-#  Scenario: User enters login credentials
-#    When I enter "Pablo" in the username field
-#    And I enter "test_password" in the password field
-#    Then I am logged in
+  @smoke
+  @P17-001
+  Scenario: User enters login credentials
+    When I enter "Pablo" in the username field
+    And I enter "test_password" in the password field
+    And I click on the login button
+    Then I am logged in
 
   @smoke
   @P17-002
@@ -52,17 +53,16 @@ Feature: QA masterclass tests
 #    Then The new task is created
 #    And The counter is updated
 
-#  @smoke
-#  @P17-004
-#  Scenario: User adds tasks to a collection
-#    Given I am at the welcome page
-#    And have an existing collection
-#    When I click on a collection
-#    And I click on the add task button
-#    And I enter "Task 1" on the task form
-#    And I click on the Create Button
-#    Then The new task is created
-#    And The counter is updated
+  @smoke
+  @P17-005
+  Scenario: User adds tasks to a collection
+    Given I am at the welcome page
+    And have an existing collection
+    When I click on a collection
+    And I click on the add task button
+    And I enter "Task 1" on the task form
+    And I click on the Create Button
+
 
 
 #  @smoke
